@@ -19,7 +19,7 @@ categories: jekyll update
 	True
 	>>> isinstance(123, Iterable) # 整数是否可迭代
 	False
----------
+
 如果要对list实现类似Java那样的下标循环怎么办？Python内置的enumerate函数可以把一个list变成索引-元素对，这样就可以在for循环中同时迭代索引和元素本身：
 
 
