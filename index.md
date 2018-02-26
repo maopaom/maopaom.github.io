@@ -5,5 +5,5 @@
 layout: default
 ---
 
-## Notes<br/>
+# Notes<br/>
 [《廖雪峰python教程》](https://maopaom.github.io/notes/2018/02/25/notes-for-liaoxuefeng-python.html)<br/>
