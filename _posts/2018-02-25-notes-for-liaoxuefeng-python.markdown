@@ -2,7 +2,7 @@
 layout: default
 title:  "廖雪峰python教程"
 date:   2018-02-25 23:08:49 +0800
-categories: jekyll update
+categories: Notes
 ---
 
 # 高级特性<br/>
