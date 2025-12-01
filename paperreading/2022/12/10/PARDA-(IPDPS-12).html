@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>PARDA (IPDPS 12) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2022/12/10/PARDA-(IPDPS-12).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,99 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">PARDA (IPDPS 12) 论文阅读</h1>
+    <p class="post-meta">December 10, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/MRC-Generation">
+          <i class="fas fa-hashtag fa-sm"></i> MRC-Generation</a>  
+          <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://ieeexplore.ieee.org/document/6267930" target="_blank" rel="noopener noreferrer">PARDA: A Fast Parallel Reuse Distance Analysis Algorithm</a></p>
+
+<p>SHARDS 基于 PARDA 实现，我比较好奇对 MRC generation 并行计算该怎么做，并且我不知道这个并行优化后的结果和 OSCA 哪个更好。</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>parallel algorithm to compute accurate reuse distances</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<h2 id="background-reuse-distance">Background: Reuse Distance</h2>
+
+<h2 id="sequential-reuse-distance-analysis">Sequential Reuse Distance Analysis</h2>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARDA-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<p>PARDA algorithm: np steps where each process processes its chunk of the trace and then sends its local infinities to its left neighbor.</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARDA-fig2.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARDA-fig3.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<p>复杂度分析暂略</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2022/12/10/PARDA (IPDPS 12)';
+      var disqus_title      = "PARDA (IPDPS 12) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

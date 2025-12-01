@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>Time, Clocks, and Ordering (78) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2023/01/24/Time,-Clocks,-and-Ordering-(78).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,49 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">Time, Clocks, and Ordering (78) 论文阅读</h1>
+    <p class="post-meta">January 24, 2023</p>
+    <p class="post-tags">
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+        ·  
+        <a href="/blog/tag/distributed%20system">
+          <i class="fas fa-hashtag fa-sm"></i> distributed system</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://dl.acm.org/doi/10.1145/359545.359563" target="_blank" rel="noopener noreferrer">Time, clocks, and the ordering of events in a distributed system</a></p>
+
+<h2 id="评论">评论</h2>
+
+<p>不愧是 Leslie Lamport，直接放<a href="http://zhangtielei.com/posts/blog-time-clock-ordering.html" target="_blank" rel="noopener noreferrer">这篇解析</a>，总结得真好啊</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2023/01/24/Time, Clocks, and Ordering (78)';
+      var disqus_title      = "Time, Clocks, and Ordering (78) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

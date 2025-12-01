@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>C2DN (NSDI 22) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2023/01/04/C2DN-(NSDI-22).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,98 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">C2DN (NSDI 22) 论文阅读</h1>
+    <p class="post-meta">January 4, 2023</p>
+    <p class="post-tags">
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+        ·  
+        <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          <a href="/blog/tag/CDN">
+          <i class="fas fa-hashtag fa-sm"></i> CDN</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/conference/nsdi22/presentation/yang-juncheng" target="_blank" rel="noopener noreferrer">C2DN: How to Harness Erasure Codes at the Edge for Efficient Content Delivery</a></p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>introduce erasure coding into the CDN architecture and use the parity chunks to re-balance the write load across servers</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>逻辑是这样的：在 CDN cache 里，miss 会带来诸多坏处，而且更重要的是，tail performance 也非常值得关注: “The design goal of a CDN is to consistently improve download performance for all objects on a content provider’s site, in every time window, and for each client location.”</p>
+
+<p>本文非常想避免 miss spike，来源是 server unavailibilty（并不少见）: A server is declared to be “unavailable” and (temporarily) taken out of service if it is deemed incapable of serving content to users within specified performance bounds.</p>
+
+<p>虽然直观上备份 cache 就可以做到大概率避免 miss spike（因为总能在另一台机器里找到数据），但这样会浪费 50% 的空间（如果备份更多就更 space-inefficient 了）。本文希望用 erasure-coding 解决这个问题，同时顺带优化一下 write imbalance to SSD (due to DNS based load balancing)，分配数据考虑为 Max Flow problem。</p>
+
+<h2 id="background">Background</h2>
+
+<p>CDN request routing stands in contrast to sharding in key-value caches, such as Memcached and Redis, where consistent hashing is often applied at a per-object granularity. In CDNs, load balancing decisions are taken on the granularity of groups of objects called buckets. Each bucket, in a DNS-based load balancer, correspond to a domain name that is resolved to obtain one or more server IPs that host objects in that bucket. This resolution is computed using consistent hashing.</p>
+
+<p>Operating Costs of a CDN: 25% Bandwidth (miss traffic, midgress, 20% + egress, 5%) +  20% server deprecation</p>
+
+<h2 id="production-cdn-trace-analysis">Production CDN Trace Analysis</h2>
+
+<p>Unavailability rates can appear high compared to published failure rates in large data centers and HPC-systems, due to less efficient cooling systems, less power redundancy, and rigorous definition of server unavailability.</p>
+
+<p>In contrast to storage systems, where replica- tion guarantees durability, in CDN clusters, servers perform cache evictions independently. Objects that are admitted to two caches at the same time may be evicted at different times. This is particularly common if the two caches evict objects at very different rates, making replication ineffective.</p>
+
+<h2 id="c2dn-system-design">C2DN System Design</h2>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/C2DN-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<h2 id="c2dn-implementation">C2DN Implementation</h2>
+
+<p>后略</p>
+
+<h2 id="评论">评论</h2>
+
+<p>疑问：</p>
+
+<ul>
+  <li>虽然一直说 “the goal is to ensure good “tail” performance in every time interval for every content provider from every cluster.” 但真的有必要那么在意 tail latency 吗？偶尔一个文件下载比较慢真的会很影响吗？（当然我理解了少一点 miss traffic 可以省钱）</li>
+  <li>另外虽然一直说这是个cache，以及 write rate difference 会影响 replication 或者在 erasure coding 的情况下会出现 partial hits，但对于一个 caching 工作，却不提 eviction / promotion strategies？</li>
+</ul>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2023/01/04/C2DN (NSDI 22)';
+      var disqus_title      = "C2DN (NSDI 22) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

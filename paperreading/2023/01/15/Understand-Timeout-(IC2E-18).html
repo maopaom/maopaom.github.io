@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>Understand-Timeout (IC2E 18) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2023/01/15/Understand-Timeout-(IC2E-18).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,100 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">Understand-Timeout (IC2E 18) 论文阅读</h1>
+    <p class="post-meta">January 15, 2023</p>
+    <p class="post-tags">
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+        ·  
+        <a href="/blog/tag/find-bug">
+          <i class="fas fa-hashtag fa-sm"></i> find-bug</a>  
+          <a href="/blog/tag/timeout">
+          <i class="fas fa-hashtag fa-sm"></i> timeout</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://tingdai.github.io/files/understanding_IC2E18.pdf" target="_blank" rel="noopener noreferrer">Understanding Real-World Timeout Problems in Cloud Server Systems</a></p>
+
+<p>我是 find-bug 小白，所以会记录很多基础信息：）</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Timeouts are commonly used to handle unexpected failures in distributed systems.</p>
+
+<ul>
+  <li>study 11 commonly used cloud server systems (e.g., Hadoop, HDSF, Spark, Cassandra, etc.)</li>
+  <li>root causes of timeout problems include misused timeout, missing timeout, improper timeout handling, unnecessary timeout, and clock drifting</li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Timeout mechanism can be used in both intra-node and inter-node communication failover. For example, when a component C1 sends a request to another component C2, C1 sets a timer timeout value and waits for the response from C2 until the timer expires. In case C2 fails or a message loss occurs, C1 can break out of the waiting state triggered by the timeout event and take proper actions (e.g., retrying or skipping) accordingly.</p>
+
+<p>一个例子：In 2015, Amazon DynamoDB service was down for five hours. The service outage is caused by a timeout bug in the metadata server. When the metadata server was already overloaded, the new requests from storage servers to the metadata server failed due to timeout. Storage servers kept retrying, causing further failures and retries, creating a cascading failure.</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/Understand-Timeout-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<ul>
+  <li>Timeout bug root causes: Our study shows that real-world timeout problems are caused by a variety of reasons including
+    <ul>
+      <li>1) misused timeout value (47%) where a timeout variable is misconfigured, ignored or incorrectly reused;</li>
+      <li>2) missing timeout checking (31%) where inter-component communication lacks timeout protection;</li>
+      <li>3) improper timeout handling where a timeout event is handled by inappropriate retries or aborts;</li>
+      <li>4) unnecessary timeout where a timeout is used for a function call which does not need timeout protection;</li>
+      <li>5) clock drifting where timeout problems are caused by asynchronous clocks between distributed hosts.</li>
+    </ul>
+  </li>
+  <li>Timeout bug impact</li>
+  <li>Timeout bug diagnosis: Our study shows that real-world timeout bugs are difficult to diagnose: 60% timeout bugs do not produce any error message and 12% timeout bugs produce misleading error messages.</li>
+</ul>
+
+<h2 id="methodology">Methodology</h2>
+
+<h2 id="root-cause-analysis">Root cause analysis</h2>
+
+<p>很多例子！非常有意思！</p>
+
+<h2 id="评论">评论</h2>
+
+<p>well-written! 下一篇准备读 follow-up 的解决方案 :)</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2023/01/15/Understand-Timeout (IC2E 18)';
+      var disqus_title      = "Understand-Timeout (IC2E 18) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>InfiniCache (FAST20) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2022/11/23/InfiniCache-(FAST-20).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,129 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">InfiniCache (FAST20) 论文阅读</h1>
+    <p class="post-meta">November 23, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/Cloud">
+          <i class="fas fa-hashtag fa-sm"></i> Cloud</a>  
+          <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/conference/fast20/presentation/wang-ao" target="_blank" rel="noopener noreferrer">InfiniCache: Exploiting Ephemeral Serverless Functions to Build a Cost-Effective Memory Cache</a></p>
+
+<p>非常有意思（虽然不一定实用），用 lambda function 作 object caching，在 light load 下省钱效果佳。</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<ul>
+  <li>exploit serverless functions’ memory resources to enable elastic pay-per-use caching</li>
+  <li>
+    <ul>
+      <li>erasure coding</li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li>intelligent billed duration control</li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li>data backup mechanism</li>
+    </ul>
+  </li>
+</ul>
+
+<p>关注 large-object-only production workload</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In-Memory Object Caches (IMOCs) are largely used only as a small cache for buffering <strong>small-sized objects</strong>.</p>
+
+<p>Large objects (MBs-GBs) consume significant memory capacity and network bandwidth + cause cache churn with evictions of many small objects.</p>
+
+<p>IBM Docker registry traces: large objects also have good locality.</p>
+
+<p>Providers only charge tenants when a function is invoked. 这个 cache 如果被 access 的频率不高，那会有可能比按整个时间段存的 cache 更划算。</p>
+
+<h2 id="background-and-motivation">Background and Motivation</h2>
+
+<p>large object caching 的研究比较少（相比 Redis / Memcached 这些）。</p>
+
+<h3 id="large-object-caching">Large Object Caching</h3>
+
+<ul>
+  <li>Extreme Variability in Object Size</li>
+  <li>Tension between Small and Large Objects
+    <ul>
+      <li>large objects 加起来传输占比超过 95%，但 IOPS &lt; 3500 GETs/hour</li>
+    </ul>
+  </li>
+  <li>Caching Large Object Matters
+    <ul>
+      <li>37%-46% large objects are reused within 1 hour since last time they were accessed</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="building-a-memory-cache-on-cloud-functions-opportunities-and-challenges">Building a Memory Cache on Cloud Functions: Opportunities and Challenges</h3>
+
+<p>opportunities:</p>
+
+<ul>
+  <li>pay-per-use pricing</li>
+  <li>short-term caching</li>
+</ul>
+
+<p>challenges of lambda function:</p>
+
+<ul>
+  <li>a limited CPU and memory capacity</li>
+  <li>run at most 900sec</li>
+  <li>only allow outbound TCP network connections (not stateful)</li>
+  <li>lack of quality-of-service (QoS) control</li>
+</ul>
+
+<h2 id="infinicache-design">InfiniCache Design</h2>
+
+<p>略，参考以下即可：</p>
+
+<ul>
+  <li>
+<a href="https://mikhail.io/2020/03/infinicache-distributed-cache-on-aws-lambda/" target="_blank" rel="noopener noreferrer">InfiniCache: Distributed Cache on Top of AWS Lambda (paper review)</a> 写得非常全面！并且比论文更方便读者！</li>
+</ul>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2022/11/23/InfiniCache (FAST 20)';
+      var disqus_title      = "InfiniCache (FAST20) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

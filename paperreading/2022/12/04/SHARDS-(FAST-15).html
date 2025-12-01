@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>SHARDS (FAST15) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2022/12/04/SHARDS-(FAST-15).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,104 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">SHARDS (FAST15) 论文阅读</h1>
+    <p class="post-meta">December 4, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/MRC-Generation">
+          <i class="fas fa-hashtag fa-sm"></i> MRC-Generation</a>  
+          <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/conference/fast15/technical-sessions/presentation/waldspurger" target="_blank" rel="noopener noreferrer">Efficient MRC Construction with SHARDS</a></p>
+
+<p>简单来说就是 hash key (所谓 spatially hash) 并且用很小的一部分 (e.g. &lt;1%) 可以达到很接近完整计算的结果。</p>
+
+<p>我在乎的是这种 hashing 的策略（可能如 lecture Q&amp;A 所说再加一点 temporal hashing) 是不是可以推广到更广泛的问题；以及具体实现的时候有遇到些什么考量。</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>SHARDS = Spatially Hashed Approximate Reuse Distance Sampling</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<h2 id="shards-sampling-algorithm">SHARDS Sampling Algorithm</h2>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/SHARDS-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<p>如果 fixed-rate construction，非常简单，固定 R 即可；</p>
+
+<p>如果 fixed-sized construction，如图里蓝色框所示，只需要随着新的内容进来，不断降低 R（当然得清除高于 R 的记录），并且对记录 rescale (1/R)，注意，rescale 不止对 x 轴，也对 y 轴。</p>
+
+<h2 id="design-and-implementation">Design and Implementation</h2>
+
+<p>不懂：</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/SHARDS-fig2.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<h2 id="experimental-evaluation">Experimental Evaluation</h2>
+
+<ul>
+  <li>Spatial Hash 得到的并不一定刚好是 1/R 的记录，缺失的记录被认为是热的，所以 counter 加在了第一个 bucket：”Ideally, the average number of repetitions per block should be the same for both the sample set and the complete trace. This happens when the actual number of sampled references, Ns, matches the expected number, E[Ns] = N * R. When this does not occur, we find that it is because the sample set contains the wrong proportion of frequently accessed blocks. Our correction simply adds the difference, E [Ns ] − Ns, to the first histogram bucket before computing final miss ratios.”</li>
+  <li>也可以 simulate more sophisticated policies, such as LIRS, ARC, CAR, or Clock-Pro</li>
+</ul>
+
+<h2 id="评论">评论</h2>
+
+<p>快速过实验结果可以看 <a href="https://www.usenix.org/sites/default/files/conference/protected-files/fast15_slides_waldspurger.pdf" target="_blank" rel="noopener noreferrer">SHARDS slides</a></p>
+
+<p>虽然思想很简单，但是效果惊人，感觉也可以用在优化 OSCA 这样的算法到 practical</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2022/12/04/SHARDS (FAST 15)';
+      var disqus_title      = "SHARDS (FAST15) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>PARROT (ICML 20) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2022/12/24/PARROT-(ICML-20).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,127 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">PARROT (ICML 20) 论文阅读</h1>
+    <p class="post-meta">December 24, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          <a href="/blog/tag/ML">
+          <i class="fas fa-hashtag fa-sm"></i> ML</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://arxiv.org/abs/2006.16239" target="_blank" rel="noopener noreferrer">An Imitation Learning Approach for Cache Replacement</a></p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>we propose an imitation learning approach (PARROT) to automatically learn cache access patterns by leveraging Belady’s, an oracle policy that computes the optimal eviction decision given the future cache accesses.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>We propose cache replacement as a challenging new IL/RL (reinforcement learning) benchmark involving dynamically changing action spaces, delayed rewards, and significant real-world impact. To that end, we release an associated Gym environment.</li>
+</ul>
+
+<h2 id="cache-preliminaries">Cache Preliminaries</h2>
+
+<p>太简单了，略</p>
+
+<h2 id="casting-cache-replacement-as-imitation-learning">Casting Cache Replacement as Imitation Learning</h2>
+
+<p>把 cache 的概念映射了一堆，要是重要再补吧</p>
+
+<h2 id="parrot-learning-to-imitate-beladys">PARROT: Learning to Imitate Belady’s</h2>
+
+<p>因为不太懂，所以直接丢结论：</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARROT-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<p>关于算法，这里讨论了一个 compounding errors: At test time, since PARROT learns an imperfect approximation of the oracle policy, it will eventually make a mistake and evict a suboptimal cache line. This leads to cache states that are different from those seen during training, which the learned policy has not trained on, leading to further mistakes.</p>
+
+<p>Notably, we can compute our oracle policy (Belady’s) at any state during training, as long as the future accesses are known. This differs from many IL tasks, where querying the expert is expensive and limited.</p>
+
+<h2 id="experiments">Experiments</h2>
+
+<p>注意：normalized hit rate = \(\frac{r-r_{LRU}}{r_{opt}-r_{LRU}}\)</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARROT-fig2.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<p>其实不是很明白两个 model 的区别到底在哪：”We observe that the past accesses become an increasingly better predictor of the future as <strong>the number past accesses increase, until about 80</strong>. After that point, more past information doesn’t appear to help approximate Belady’s. Interestingly, Glider experiences a similar saturation in improvement from additional past accesses, but at around 30 past accesses. This suggests that learning a replacement policy <strong>end-to-end with PARROT</strong> can effectively leverage more past information than simply predicting whether a cache line is <strong>cache-friendly or cache-averse</strong>.”</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/PARROT-fig3.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<h2 id="related-work">Related Work</h2>
+
+<p>略</p>
+
+<h2 id="conclusion-and-future-directions">Conclusion and Future Directions</h2>
+
+<p>“Software caches may be an especially promising area for applying our approach, as they tolerate higher latency in the replacement policy and implementing more complex replacement policies is easier in software.”</p>
+
+<h2 id="评论">评论</h2>
+
+<p>本文自己提到，当前的 overhead 对于 hardware cache 不太友好，比较有前景的还是 software cache；但既然如此，为什么又在使用 cpu traces/benchmark，以及对比的是针对 cpu cache 的其他工作（比如 Glider）呢？在我看来是选择了不对应的 workload 以及更容易的 baseline。更容易是因为 cpu cache 上的 ML 工作总体倾向于轻量，也因此潜在地牺牲了 accuracy。当然，本文使用的如果是最重量的 Glider 作为 baseline 也不算太容易。</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2022/12/24/PARROT (ICML 20)';
+      var disqus_title      = "PARROT (ICML 20) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

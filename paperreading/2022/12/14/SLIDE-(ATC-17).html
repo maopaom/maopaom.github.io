@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>SLIDE (ATC 17) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2022/12/14/SLIDE-(ATC-17).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,118 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">SLIDE (ATC 17) 论文阅读</h1>
+    <p class="post-meta">December 14, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          <a href="/blog/tag/MRC-Generation">
+          <i class="fas fa-hashtag fa-sm"></i> MRC-Generation</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/system/files/conference/atc17/atc17-waldspurger.pdf" target="_blank" rel="noopener noreferrer">Cache Modeling and Optimization using Miniature Simulations</a></p>
+
+<p>这些作者之前做了 SHARDS 这种适用于很多场景的工作，这一篇也是这样风格的大而全：既然不能为每一个算法建具体的数学模型，不如设计一种 low-overhead approach 可以做到什么算法都行！</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<ul>
+  <li>evaluate the effectiveness of this approach for modeling <strong>non-LRU algorithms, including ARC, LIRS and OPT</strong>
+</li>
+  <li>SLIDE performs <strong>shadow partitioning transparently within a single unified cache</strong>, avoiding the problem of migrating state between distinct caches when partition boundaries change</li>
+</ul>
+
+<p>Questions:</p>
+
+<ul>
+  <li>什么是 “problem of migrating state between distinct caches when partition boundaries change”</li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>stack algorithm (inclusion property)
+    <ul>
+      <li>single-pass MRC generation</li>
+      <li>monotonic</li>
+      <li>e.g. LRU, LFU, MRU</li>
+    </ul>
+  </li>
+  <li>non-stack algorithm
+    <ul>
+      <li>no known single-pass MRC generation (separate runs for each cache size)</li>
+      <li>non-monotonic</li>
+      <li>e.g. 2Q, ARC, LIRS, OPT</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="non-stack-algorithms">Non-stack Algorithms</h2>
+
+<p>** 2Q/ARC/LIRS 都有 tunable parameter</p>
+
+<p>** OPT: Belady first described OPT, the theoretically optimal algorithm, also known as MIN [4, 1, 13]. OPT is a “clairvoyant” algorithm, since it relies on knowledge of future references to evict the block that will be reused the farthest in the future. Although OPT is actually a stack algorithm, it cannot be used to implement online eviction. Instead, <strong>OPT provides a bound on the performance of realizable algorithms</strong>.</p>
+
+<h2 id="scaled-down-modeling">Scaled-down Modeling</h2>
+
+<h3 id="miniature-simulations">Miniature Simulations</h3>
+
+<p>emulated cache size Se, mini-cache size Sm, and input sampled rate R, -&gt; Se = Sm/R</p>
+
+<p>In practice, it is useful to enforce reasonable constraints on the minimum mini-cache size (e.g. Sm &gt;= 100) and sampling rate (R &gt;= 0.001) to <strong>ensure sufficient cache space and enough sampled references to simulate meaningful behavior</strong>.</p>
+
+<p>因为 sample rate R 不能确保真正 # of sampled references Ns = E[Ns] = N * R，这里认为偏差的那部分 (|Ns - E[Ns]|) 因为 the wrong proportion of <strong>frequently-accessed</strong> blocks，所以本文建议使用 # of misses / E[Ns] (x m/Ns)</p>
+
+<p>不懂：</p>
+
+<ul>
+  <li>We have experimented with an alternative “unified” approach that integrates MRC construction into a live production cache, without running separate simulations. Spatial hashing shards requests across a set of cache partitions, all serving actual requests. Several small partitions serve as monitoring shards, emulating multiple cache sizes within a small fraction of the overall cache.</li>
+  <li>An MRC can be generated on demand by simply accessing the miss ratios associated with each monitoring shard. Although integrated monitoring avoids additional simulation costs, we found that it typically degrades overall cache performance slightly, since most monitoring shards will not have efficient operating points.</li>
+</ul>
+
+<h2 id="adapting-cache-parameters">Adapting Cache Parameters</h2>
+
+<ul>
+  <li>divide the input reference stream into a series of epoches</li>
+  <li>after each epoch, miss ratios for each mini-cache (different param) are examined, and the best parameter is applied to the actual cache</li>
+</ul>
+
+<h2 id="slide">SLIDE</h2>
+
+<p>** SLIDE, <strong>Sharded List with Internal Differential Eviction</strong>, maintains a single unified cache, and defers partitioning decisions until eviction time.</p>
+
+<p>TBD</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2022/12/14/SLIDE (ATC 17)';
+      var disqus_title      = "SLIDE (ATC 17) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

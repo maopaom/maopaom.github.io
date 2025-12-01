@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>Dynacache (HotCloud 15) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2023/01/10/Dynacache-(HotCloud-15).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,86 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">Dynacache (HotCloud 15) 论文阅读</h1>
+    <p class="post-meta">January 10, 2023</p>
+    <p class="post-tags">
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+        ·  
+        <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/conference/hotcloud15/workshop-program/presentation/cidon" target="_blank" rel="noopener noreferrer">Dynacache: Dynamic Cloud Caching</a></p>
+
+<h2 id="abstract">Abstract</h2>
+
+<ul>
+  <li>Dynacache, a cache controller, significantly improves the hit rate of web applications, by profiling applications and dynamically tailoring memory resources and eviction policies.</li>
+  <li>Dynacache allows Memcached operators to better plan their resource allocation and manage server costs, by estimating the cost of cache hits as a function of memory.</li>
+</ul>
+
+<p>总的来说就是 profiling+tuning 很有提升空间、是值得的，Dynacache 通过更好地平衡 slab 之间的分配来优化性能。</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>很多人都不觉得 simplicity 和 performance 也是个重要的 trade-off，这里提到了我还挺惊喜的：”While a dynamic application-aware cache is conceptually appealing, is it worth the additional complexity in practice?”</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/Dynacache-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<h2 id="memcachier-trace-analysis">MEMCACHIER TRACE ANALYSIS</h2>
+
+<h2 id="design">Design</h2>
+
+<h3 id="practical-profiling">Practical Profiling</h3>
+
+<p>没看懂：</p>
+
+<p>“Dynacache uses a bucketing scheme similar to Mimir. In this bucketing scheme, instead of keeping track of a shadow eviction queue, there is a linked list of buckets, each containing a fixed number of items. Each incoming request enters the top bucket, and when the top bucket is filled, we remove the bucket at the end of the queue. We maintain a hash function that maps each item to the bucket in which it is stored. We can estimate the stack distance of an in- coming request, by summing the size of all buckets that appear in the queue before it, and adding it to the size of its own bucket divided by 2. This stack distance computation algorithm is much faster than the naïve method, since its complexity is O(B), where B is the number of buckets. For Memcachier, we utilized 100 buckets with 100 keys each.”</p>
+
+<h2 id="评论">评论</h2>
+
+<ul>
+  <li>感觉跟 LAMA 撞了，而且总体上被 LAMA 高级替代了</li>
+</ul>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2023/01/10/Dynacache (HotCloud 15)';
+      var disqus_title      = "Dynacache (HotCloud 15) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

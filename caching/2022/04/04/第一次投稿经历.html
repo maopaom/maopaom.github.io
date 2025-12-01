@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>第一次投稿经历 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/caching/2022/04/04/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8A%95%E7%A8%BF%E7%BB%8F%E5%8E%86.html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,95 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">第一次投稿经历</h1>
+    <p class="post-meta">April 4, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB">
+          <i class="fas fa-hashtag fa-sm"></i> 经验分享</a>  
+          
+        ·  
+        <a href="/blog/category/caching">
+          <i class="fas fa-tag fa-sm"></i> caching</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <h2 id="读者须知">读者须知</h2>
+
+<p>本文虽然打了“经验分享”的 Tag，但更像是个人体会的记录。读者了解了在常见投稿困难下，我的取舍带来的结果，可能会有一定感触。</p>
+
+<h2 id="前言">前言</h2>
+
+<p>本文的定位是”投稿“分享，所以将关注以下在投稿特有的问题：如何在有限时间保证一次<strong>完整的投稿</strong>。</p>
+
+<p>我也有自己没有做好的事情，例如：我给出的draft基本上只能涵盖必要信息，而没能组织成论文该有的水准；最后关头往往只能保证最重要的 evaluation，但距离尽善尽美的实现还有距离等等。这里就不展开了。</p>
+
+<p>最后我会记录一下从 5 个 <strong>Reviews</strong> 中学到的东西。</p>
+
+<h2 id="如何在有限时间保证一次完整的投稿">如何在有限时间保证一次完整的投稿</h2>
+
+<h3 id="writing-workflow">Writing workflow</h3>
+
+<p>虽然一直说成熟的 researcher 会提前开始写作，甚至利用写作 polish 工作本身 <a href="https://b23.tv/jOBW38O" target="_blank" rel="noopener noreferrer"><u>How to Write a Great Research Paper (bilibili)</u></a>，但初学者如我更可能面对的是最后几周赶稿。</p>
+
+<p>workflow 涉及了合作者之间修改的顺序、某些内容需要讨论的时候要迅速 call for meeting 并达成共识、某段落以及某合作者须在什么时间之前完成等等。</p>
+
+<p>为了能更好的写作，还需要尽早明确各种写法，包括：给 idea 和各个常用的部分选择称呼和简写、每个人的修改如何用各自的颜色或者签名标记、互相审阅完成如何标记等等。</p>
+
+<h3 id="安排实验时间">安排实验时间</h3>
+
+<ul>
+  <li>在安排实验的时候，要预留容错时间，我一般自认为 1h 完成的工作，会安排 1.5h，这样往往刚刚好，在投稿前可以<strong>减轻焦虑</strong>心理</li>
+  <li>自己构思出<strong>最高效的实验参数（最少的实验、最多面的信息量）</strong>，立刻与合作者/导师商量，达成一致再操作</li>
+  <li>如果可以通过修改代码使得跑实验的流程更高效，这种前序工作是值得的（例如把测试脚本写得更好，比手动一个一个实验慢慢跑，要省心很多）。</li>
+</ul>
+
+<h2 id="reviews-收获">Reviews 收获</h2>
+
+<h3 id="需要多方面做实验验证">需要多方面做实验验证</h3>
+
+<ul>
+  <li>重要参量的敏感度分析（避免 ad-hoc）</li>
+  <li>synthetic / old traces 之外最好有强有力的 killer traces
+    <ul>
+      <li>比如 workload 只有新旧之分的时候，最开始就应该选择新的</li>
+      <li>workload 的来源不同的时候，要按需选择。比如，caching  有 in-memory traces, block io traces 等等</li>
+    </ul>
+  </li>
+  <li>仅仅口头说明好处不够有说服力，应该精心选择实现&amp;实验，在有限的篇幅内展示效果</li>
+  <li>不要害怕做出不好的结果，这可能是好结果的前提</li>
+</ul>
+
+<h3 id="reviews-的不可替代性">Reviews 的不可替代性</h3>
+
+<p>我曾经有一个观点是：“至少我自己确认准备好了，才能去投稿；而如果我不确定项目好不好，那可能这不是一次成熟的投稿。”</p>
+
+<p>但这次投稿后，我发现很多视角（还有背景工作）可能是我自己不会想到的，再给我几个月可能也不会，反而我可能会滑向“闭门造车”。所以，在追求自己的完美目标和适时投稿之间，我相信存在一个极大值点。</p>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/caching/2022/04/04/第一次投稿经历';
+      var disqus_title      = "第一次投稿经历";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 

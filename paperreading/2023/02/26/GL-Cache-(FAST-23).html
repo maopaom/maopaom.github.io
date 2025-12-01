@@ -2,16 +2,17 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Lixuan  Chen</title>
+    <title>GL-Cache (FAST 23) 论文阅读 | Lixuan  Chen</title>
     <meta name="author" content="Lixuan  Chen" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="/assets/img/button.jpeg"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://maopaom.github.io/404.html">
+    <link rel="canonical" href="https://maopaom.github.io/paperreading/2023/02/26/GL-Cache-(FAST-23).html">
     
     <!-- Dark Mode -->
     
@@ -100,49 +101,152 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">GL-Cache (FAST 23) 论文阅读</h1>
+    <p class="post-meta">February 26, 2023</p>
+    <p class="post-tags">
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+        ·  
+        <a href="/blog/tag/Cache">
+          <i class="fas fa-hashtag fa-sm"></i> Cache</a>  
+          <a href="/blog/tag/ML">
+          <i class="fas fa-hashtag fa-sm"></i> ML</a>  
+          
+        ·  
+        <a href="/blog/category/paperreading">
+          <i class="fas fa-tag fa-sm"></i> paperreading</a>  
+          
 
-          </article>
-          <div id="image-cover-modal" class="image-cover-modal">
-    <img id="image-cover-image" class="image-cover-modal-content">
-    <div id="image-cover-caption"></div>
-  </div>
-  <script>
-  // Get the DOM
-  var modal = document.getElementById('image-cover-modal');
-  var modalImg = document.getElementById("image-cover-image");
-  var captionText = document.getElementById("image-cover-caption");
-  var span = document.getElementsByClassName("image-cover-close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-      this.classList.remove("model-shown");
-  }
-  
-  var i;
-  for (i = 0; i < document.images.length; i++) {
-  
-      // Get the image and insert it inside the modal - use its "alt" text as a caption
-      var img = document.images[i];
-  
-      img.onclick = function(){
-          modal.classList.add("model-shown");
-          modalImg.src = this.src;
-          captionText.innerHTML = this.alt;
-      }
-  }
-  </script>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p><a href="https://www.usenix.org/system/files/fast23-yang.pdf" target="_blank" rel="noopener noreferrer">GL-Cache: Group-level learning for efficient and high-performance caching</a></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>“learned caches”: employed machine learning to improve cache evictions</p>
+<ul>
+  <li>object-level learning (e.g. LRB): learns the next access time for each object using dozens of object features and evicts the object with the furthest predicted request time
+    <ul>
+      <li>significant computation and storage overheads</li>
+      <li>Zipf distributions “most objects only get a limited number of requests. This leads to limited object-level information for learning”</li>
+    </ul>
+  </li>
+  <li>learning-from-distribution (e.g. LHD): models request probability distributions to inform eviction decisions
+    <ul>
+      <li>必须 random sample，利用的信息有限，绝大部分 object 在 distribution 的尾部、信息很少</li>
+    </ul>
+  </li>
+  <li>learning-from-simple-experts (e.g. LeCaR and Cacheus): performs evictions by choosing eviction candidates recommended by experts (e.g., LRU and LFU), and updates experts’ weights based on their past performance on the workload
+    <ul>
+      <li>A delay exists between a bad eviction and an update on the expert’s weight (“delayed rewards” in reinforcement learning).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Group-level Learned Cache:</p>
+<ul>
+  <li>cluster similar objects into groups using write time</li>
+  <li>evict the least useful groups using a merge-based eviction</li>
+  <li>introduce a group utility function to rank groups</li>
+</ul>
+
+<h2 id="background-and-motivation">Background and motivation</h2>
+
+<p>Questions:</p>
+
+<ul>
+  <li>“Object-level learning needs to sample objects and perform inference at each write (eviction). For example, LRB samples 32 objects and copies their features to a matrix for inference for each eviction. In our measurement, each evic- tion (including feature copy, inference, and ranking) takes <strong>200 μs</strong> on one CPU core, indicating that the cache can evict at most 5,000 objects on a single core per second.” 200 us 这实验是怎么做的，这数字怎么这么大</li>
+</ul>
+
+<h2 id="gl-cache-group-level-learned-cache">GL-Cache: Group-level learned cache</h2>
+
+<ul>
+  <li>Grouping by write time
+    <ul>
+      <li>PS: allow an efficient implementation using a log-structured cache</li>
+    </ul>
+  </li>
+</ul>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/GLCache-fig1.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<ul>
+  <li>Learning object-group utility
+    <ul>
+      <li>gradient boosting machines (GBM) because tree models do not require feature normalization</li>
+      <li>formulate the learning task as a regression problem that minimizes the mean square loss (L2) of object-group utilities</li>
+      <li>A sampled group may be evicted before being used for training. Such evictions halt the tracking of group utility. GL-Cache keeps ghost entries for objects which have not been factored into group utility.</li>
+      <li>一次扔掉最差的 group 附近的 \(N_{group}\) 个 group，这个参数可能设置成整体的 1% 之类的</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Questions:</p>
+
+<ul>
+  <li>如果有好几个 application 同时写入，凭什么说有相似的 write-time 的 object 相似呢？</li>
+  <li>“GL-Cache generates new training data by sampling cached object groups, and it copies the features of the sampled groups into a pre-allocated memory region” 这不是也有 random sampling (v.s. learning-from-distribution)?</li>
+</ul>
+
+<h2 id="evaluation">Evaluation</h2>
+
+<p>放两个有意思的图：</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/GLCache-fig2.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/fig/GLCache-fig3.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+  </article><div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname  = 'Lixuan';
+      var disqus_identifier = '/paperreading/2023/02/26/GL-Cache (FAST 23)';
+      var disqus_title      = "GL-Cache (FAST 23) 论文阅读";
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+
+</div>
 
     </div>
 
