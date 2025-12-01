@@ -7,7 +7,7 @@ subtitle:
 
 profile:
   align: right
-  image: clx.png
+  image: LixuanChen.jpg
   image_circular: false # crops the image to make it circular
   # address: >
   #   <p>GHC 5007</p>
@@ -20,7 +20,7 @@ news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 ---
 
-I am Lixuan Chen (陈利瑄 in Chinese), a third-year M.S. student in [SMILE Lab:smiley:](https://smilelab.com.cn/) at [ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/) (Shanghai, China), advised by Prof. [Yuyao Zhang](https://sist.shanghaitech.edu.cn/sist_en/2020/0814/c7582a54827/page.htm). I also collaborate closely with Prof. [Liyue Shen](https://liyueshen.engin.umich.edu/). Before that, I received my B.E. degree at ShanghaiTech University in 2021.
+I am Lixuan Chen (陈利瑄 in Chinese), a second-year Ph.D. student in at [University of Michigan](https://ece.engin.umich.edu/) (Ann Arbor, US), co-advised by Prof. [Liyue Shen](https://liyueshen.engin.umich.edu/) and Prof. [Jeong Joon Park](https://jjparkcv.github.io/). I also collaborate closely with Prof. [James M. Balter](https://medschool.umich.edu/profile/4905/james-m-balter). Before that, I completed my master's at [ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/) (Shanghai, China), advised by Prof. [Yuyao Zhang](https://sist.shanghaitech.edu.cn/sist_en/2020/0814/c7582a54827/page.htm).
 
 
 
@@ -30,8 +30,7 @@ My research interests mainly focus on:
 <ul>
  <li><strong>Inverse Problems in Medical Imaging</strong></li>
   <ul>
-  <li>MRI Reconstruction, Motion Correction, Atlas Construction, <br>
-    CT Metal Artifact Reduction, etc.</li>
+  <li>Dynamic 3D MRI Reconstruction, Motion Tracking, Motion Correction, etc.</li>
   </ul>
  <li><strong>Model-based Deep Learning for Medical Imaging</strong></li>
   <ul>
@@ -43,4 +42,4 @@ My research interests mainly focus on:
 
 See more in the [detailed CV](https://maopaom.github.io/assets/pdf/clx.pdf).
 
-<!-- <span style="color:#008fe0"><b>I am looking for a PhD position for 2024 Fall!</b></span> -->
+<span style="color:#008fe0"><b>I'll be in San Diego for NeurIPS 2025 from Dec 1–8, feel free to reach out and chat! :palm_tree: :smiley:</b></span>
