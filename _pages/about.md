@@ -20,7 +20,7 @@ news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 ---
 
-I am Lixuan Chen (陈利瑄 in Chinese), a second-year Ph.D. student in at [University of Michigan](https://ece.engin.umich.edu/) (Ann Arbor, US), co-advised by Prof. [Liyue Shen](https://liyueshen.engin.umich.edu/) and Prof. [Jeong Joon Park](https://jjparkcv.github.io/). I also collaborate closely with Prof. [James M. Balter](https://medschool.umich.edu/profile/4905/james-m-balter). Before that, I completed my master's at [ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/) (Shanghai, China), advised by Prof. [Yuyao Zhang](https://sist.shanghaitech.edu.cn/sist_en/2020/0814/c7582a54827/page.htm).
+I am Lixuan Chen (陈利瑄 in Chinese), a second-year Ph.D. student at [University of Michigan](https://ece.engin.umich.edu/) (Ann Arbor, US), co-advised by Prof. [Liyue Shen](https://liyueshen.engin.umich.edu/) and Prof. [Jeong Joon Park](https://jjparkcv.github.io/). I also collaborate closely with Prof. [James M. Balter](https://medschool.umich.edu/profile/4905/james-m-balter). Before that, I completed my master's at [ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/) (Shanghai, China), advised by Prof. [Yuyao Zhang](https://sist.shanghaitech.edu.cn/sist_en/2020/0814/c7582a54827/page.htm).
 
 
 
