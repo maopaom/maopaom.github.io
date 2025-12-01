@@ -7,7 +7,7 @@ subtitle:
 
 profile:
   align: right
-  image: LixuanChen.jpg
+  image: lixuanchen.jpg
   image_circular: false # crops the image to make it circular
   # address: >
   #   <p>GHC 5007</p>
