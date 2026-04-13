@@ -33,36 +33,65 @@
         {%- if entry.preview -%}
           {%- assign preview_id = entry.preview | remove: "." -%}
           {%- assign modal_id = preview_id | append: '-modal' -%}
-          {%- assign modal_img_id = modal_id | append: '-img' -%}
+          {%- assign modal_media_id = modal_id | append: '-media' -%}
+          {%- assign preview_is_video = false -%}
+          {%- assign preview_downcase = entry.preview | downcase -%}
+          {% if preview_downcase contains '.mp4' -%}
+            {%- assign preview_is_video = true -%}
+          {%- endif -%}
           {% if entry.preview contains '://' -%}
-          <img id="{{ preview_id }}" class="preview z-depth-1 rounded myImg" src="{{ entry.preview }}">
+            {%- assign preview_src = entry.preview -%}
           {%- else -%}
-          <img id="{{ preview_id }}" class="preview z-depth-1 rounded myImg" src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}">
+            {%- assign preview_src = entry.preview | prepend: '/assets/img/publication_preview/' | relative_url -%}
+          {%- endif -%}
+          {% if preview_is_video -%}
+          <video id="{{ preview_id }}" class="preview z-depth-1 rounded myImg" muted playsinline autoplay loop>
+            <source src="{{ preview_src }}" type="video/mp4">
+          </video>
+          {%- else -%}
+          <img id="{{ preview_id }}" class="preview z-depth-1 rounded myImg" src="{{ preview_src }}">
           {%- endif -%}
           <div id="{{ modal_id }}" class="modal2">
             <span class="closeimg" onclick="document.getElementById('{{ modal_id }}').style.display='none'">&times;</span>
             <div class="myCaption"></div>
-            <img class="modal-content2" id="{{ modal_img_id }}">
+            {% if preview_is_video -%}
+            <video class="modal-content2" id="{{ modal_media_id }}" controls playsinline loop>
+              <source src="{{ preview_src }}" type="video/mp4">
+            </video>
+            {%- else -%}
+            <img class="modal-content2" id="{{ modal_media_id }}">
+            {%- endif -%}
           </div>
           <script>
             // Get the modal
             var modal = document.getElementById("{{ modal_id }}");
-            // Get the image and insert it inside the modal - use its "alt" text as a caption
-            var img = document.getElementById('{{ preview_id }}');
-            var modalImg = document.getElementById("{{ modal_img_id }}");
+            // Get the media and insert it inside the modal - use its caption text as a caption
+            var previewMedia = document.getElementById('{{ preview_id }}');
+            var modalMedia = document.getElementById("{{ modal_media_id }}");
             var captionText = modal.getElementsByTagName('div')[0];
-            img.onclick = function() {
+            previewMedia.onclick = function() {
               modal.style.display = "block";
-              modalImg.src = this.src;
+              {% if preview_is_video -%}
+              modalMedia.currentTime = 0;
+              modalMedia.play();
+              {%- else -%}
+              modalMedia.src = this.src;
+              {%- endif %}
               captionText.innerHTML = "{{ entry.previewcaption }}";
             }
             // Get the <span> element that closes the modal
             var span = modal.getElementsByTagName('span')[0];
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
+              {% if preview_is_video -%}
+              modalMedia.pause();
+              {%- endif %}
               modal.style.display = "none";
             }
             modal.onclick = function() {
+              {% if preview_is_video -%}
+              modalMedia.pause();
+              {%- endif %}
               modal.style.display = "none";
             }
           </script>

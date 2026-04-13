@@ -41,5 +41,3 @@ My research interests mainly focus on:
 
 
 See more in the [detailed CV](https://maopaom.github.io/assets/pdf/clx.pdf).
-
-<span style="color:#008fe0"><b>I'll be in San Diego for NeurIPS 2025 from Dec 1–8, feel free to reach out and chat! :palm_tree: :smiley:</b></span>
